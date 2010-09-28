@@ -1,0 +1,2 @@
+  # cat=basic//10; type=string; label=External URL - Base Part.  
+externalURLbase = http://

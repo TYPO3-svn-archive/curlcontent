@@ -1,0 +1,26 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDEF>
+		  <ROOT>
+			<TCEforms>
+			  <sheetTitle>cURL Content</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+			  <settings.externalURLpath>
+				<TCEforms>
+				  <label>URL-Path</label>
+				  <config>
+					<type>input</type>
+					<size>128</size>
+				  </config>
+				</TCEforms>
+			  </settings.externalURLpath>
+			</el>
+		  </ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

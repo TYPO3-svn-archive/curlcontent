@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'blog_example'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_tumcors_domain_model_person">Person</label>
+			<label index="tx_tumcors_domain_model_person.personid">Person ID</label>
+			<label index="tx_tumcors_domain_model_person.templateid">Template ID</label>
+			<label index="tx_tumcors_domain_model_person.rendered">Rendered Data</label>
+		</languageKey>
+	</data>
+</T3locallang>
