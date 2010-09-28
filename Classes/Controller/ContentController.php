@@ -1,34 +1,78 @@
 <?php
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2010 Bernie Maier <maier@tum.de>
+ *  (c) 2010 Dimitri Koenig <dk@cabag.ch>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
- * 2010-06-11 gi23kis 010
+ * Gets some content with curl from a specific URL
+ *
+ * @package Curlcontent
+ * @version $Id:
  */
-class Tx_Curlcontent_Controller_ContentController extends
-Tx_Extbase_MVC_Controller_ActionController {
+class Tx_Curlcontent_Controller_ContentController extends Tx_Extbase_MVC_Controller_ActionController {
+	protected $curlHandle = NULL;
 
 	public function indexAction() {
-		$_EXTKEY = 'curlcontent';
-		
-		// get basic-configuration-data from localconf.php
-		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
-		$externalURLbase = $this->extConf['externalURLbase'];
+		$this->initCurl();
+		$this->setCurlTarget();
+		$this->setCurlTimeout();
 
-		// get data from tt_content (flexform)
-		$externalURLpath = $this->settings['externalURLpath'];
-		
-		// 
-		$targetUrl = $externalURLbase . $externalURLpath;
-		
-		// cURL
-    $ch = curl_init();	// create curl resource
-    curl_setopt($ch, CURLOPT_URL, $targetUrl);	// set url
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	//return the transfer as a string
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);	// ignore httpS
-    $htmlOUT = curl_exec($ch);	// $htmlOUT contains the output string
-		curl_close($ch);	// close curl resource to free up system resources
-		
-		// export 
-		return $htmlOUT;
+		return $this->getCurlContent();
+	}
+
+	protected function getExternalURLBase() {
+		$_EXTKEY = 'curlcontent';
+		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
+		return $this->extConf['externalURLbase'];
+	}
+
+	protected function getExternalURLPath() {
+		return $this->settings['externalURLpath'];
+	}
+
+	protected function initCurl() {
+		$this->curlHandle = curl_init();
+		curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1); //return the transfer as a string
+		curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYPEER, FALSE); // ignore httpS
+	}
+
+	protected function setCurlTarget() {
+		$targetURL = $this->getExternalURLBase() . $this->getExternalURLPath();
+		curl_setopt($this->curlHandle, CURLOPT_URL, $targetURL);
+	}
+
+	protected function getCurlContent() {
+		$htmlContent = curl_exec($this->curlHandle);
+		curl_close($this->curlHandle);
+
+		return $htmlContent;
+	}
+
+	protected function setCurlTimeout() {
+		$timeout = intval($this->settings['timeout']);
+		if ($timeout > 0) {
+			curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, $timeout);
+		}
 	}
 }
 

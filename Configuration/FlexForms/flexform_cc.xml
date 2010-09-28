@@ -19,6 +19,15 @@
 				  </config>
 				</TCEforms>
 			  </settings.externalURLpath>
+			  <settings.timeout>
+				<TCEforms>
+				  <label>Timeout (in seconds)</label>
+				  <config>
+					<type>input</type>
+					<size>128</size>
+				  </config>
+				</TCEforms>
+			  </settings.timeout>
 			</el>
 		  </ROOT>
 		</sDEF>
