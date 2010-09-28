@@ -27,7 +27,7 @@
  * Gets some content with curl from a specific URL
  *
  * @package Curlcontent
- * @version $Id:
+ * @version $Id$
  */
 class Tx_Curlcontent_Controller_ContentController extends Tx_Extbase_MVC_Controller_ActionController {
 	protected $curlHandle = NULL;
@@ -69,9 +69,9 @@ class Tx_Curlcontent_Controller_ContentController extends Tx_Extbase_MVC_Control
 	}
 
 	protected function setCurlTimeout() {
-		$timeout = intval($this->settings['timeout']);
-		if ($timeout > 0) {
-			curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, $timeout);
+		$timeoutSeconds = intval($this->settings['timeout']);
+		if ($timeoutSeconds > 0) {
+			curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, $timeoutSeconds);
 		}
 	}
 }

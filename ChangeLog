@@ -1,4 +1,8 @@
 10-09-28 - Dimitri Koenig <dk@cabag.ch>
+	* Version 1.0.2
+	* small enhancements
+
+10-09-28 - Dimitri Koenig <dk@cabag.ch>
 	* Version 1.0.1
 	* refactoring of controller class
 	* added timeout setting to flexform
